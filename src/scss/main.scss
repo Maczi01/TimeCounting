@@ -1,0 +1,92 @@
+@import "_normalize";
+@import "_variables";
+@import url('https://fonts.googleapis.com/css?family=Teko&display=swap');
+
+
+html {
+  box-sizing: border-box;
+}
+
+*, *:before, *:after {
+  box-sizing: inherit;
+}
+
+body {
+  color: $yellow;
+  background: $white;
+  font-family: 'Teko', sans-serif;
+}
+
+.counteer {
+  //margin: 0 auto;
+  border-radius: 30px;
+  background-color: $blue;
+  //background-image: url("../assets/img/wind.jpg");'
+  display: grid;
+  grid-template-columns: 30px 1fr 1fr 1fr 1fr 30px;
+  grid-template-rows: 30px 40px 1fr 1fr 1fr 1fr 1fr 1fr 1fr 30px;
+  color: $white;
+  height: 700px;
+  font-size: 40px;
+  margin: 10px 10px 10px 10px;
+
+  &__settings {
+    background-color: $gray;
+    grid-column-start: 3;
+    grid-column-end: 5;
+    grid-row-start: 3;
+    grid-row-end: 4;
+    border-radius: 10px;
+  }
+
+  &__menu {
+
+    &--hamburger {
+      color: $black;
+      grid-column-start: 2;
+      grid-row-start: 2;
+      background-color: $yellow;
+      text-align: center;
+      height: 40px;
+      width: 40px;
+      border-radius: 10px;
+      font-size: 36px;
+    }
+
+    &--options {
+      background-color: rgb(50, 190, 166);
+      border-radius: 10px;
+
+      margin-left: 40px;
+      grid-row-start: 2;
+      grid-column-end: 6;
+      background-image: url("../assets/img/settings.svg");
+      background-position: center;
+      height: 40px;
+      width: 40px;
+    }
+  }
+
+  &__timer {
+    margin: 0 auto;
+    text-align: center;
+    grid-row-start: 5;
+    grid-row-end: 6;
+    grid-column-start: 3;
+    grid-column-end: 5;
+    font-size: 56px;
+    //height: 50px;
+  }
+  //&--circle{
+  //
+  //}
+}
+#time{
+  z-index: 1;
+}
+#canva{
+  grid-row-start: 6;
+  grid-row-end: 7;
+  grid-column-start: 3;
+  grid-column-end: 5;
+}
