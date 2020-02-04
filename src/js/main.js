@@ -29,9 +29,9 @@ window.onload = function () {
     counting();
 }
 var specs = {
-    'radius': 70,
-    'centerX': 70,
-    'centerY': 70,
+    'radius': 50,
+    'centerX': 50,
+    'centerY': 50,
     'thickness': 10,
     'offset': -Math.PI / 2,
     'color': '#ffffff',
