@@ -1,6 +1,30 @@
 let counter = 0;
-let timeLeft = 15;
+let timeLeft = 10;
 const canva = document.querySelector('#canva');
+const playButton = document.querySelector('.counteer__settings--play--js');
+const pauseButton = document.querySelector('.counteer__settings--pause');
+const stopButton = document.querySelector('.counteer__settings--stop');
+var specs = {
+    'radius': 120,
+    'centerX': 120,
+    'centerY': 120,
+    'thickness': 20,
+    'offset': -Math.PI / 2,
+    'color': '#ffffff',
+    'bgColor': '#ff230f',
+    'idFont': '11px Verdana',
+    'valueFont': '80px Teko',
+    'fontColor': '#ffffff',
+    'lineCap': 'round'
+};
+let context = canva.getContext('2d');
+playButton.addEventListener('click', play);
+pauseButton.addEventListener('click', pauseToPlay);
+stopButton.addEventListener('click', stop);
+window.onload = function () {
+    drawCircle(0);
+}
+let interval;
 
 function showMinutes(s) {
     let minutes = Math.floor(s / 60);
@@ -12,48 +36,57 @@ function showMinutes(s) {
 }
 
 function counting() {
-    let timer = document.getElementById('time');
-    let interval = setInterval(timeIt, 1000);
+    interval = setInterval(timeIt, 1000);
+}
 
-    function timeIt() {
-        counter++;
-        showMinutes(timeLeft - counter);
-        drawCircle(counter);
-        if (counter === timeLeft) {
-            clearInterval(interval);
-        }
+function timeIt() {
+    counter++;
+    console.log(counter)
+    // showMinutes(timeLeft - counter);
+    drawCircle(counter);
+    if (counter === timeLeft) {
+        clearInterval(interval)
     }
 }
 
-window.onload = function () {
+function play() {
     counting();
+    playButton.classList.remove('counteer__settings--play')
+    playButton.classList.add('counteer__settings--play_nonvisibility')
+    pauseButton.classList.add('counteer__settings--pause_nonvisability');
+    pauseButton.classList.remove('counteer__settings--pause_visability');
 }
-var specs = {
-    'radius': 50,
-    'centerX': 50,
-    'centerY': 50,
-    'thickness': 10,
-    'offset': -Math.PI/2,
-    'color': '#ffffff',
-    'bgColor': '#ff230f',
-    'idFont': '11px Verdana',
-    'valueFont': '56px Teko',
-    'fontColor': '#ffffff',
-    'lineCap': 'round'
-};
 
-let context = canva.getContext('2d');
+function pauseToPlay() {
+    clearInterval(interval)
+    playButton.classList.add('counteer__settings--play')
+    playButton.classList.remove('counteer__settings--play_nonvisibility')
+    pauseButton.classList.remove('counteer__settings--pause_nonvisability');
+    pauseButton.classList.add('counteer__settings--pause_visability');
+}
 
-const angleToRadian = function(angle) {
-    return Math.PI/180 * angle;
+function stop() {
+    counter = 0;
+    clearInterval(interval);
+    drawCircle(0);
+    pauseButton.classList.remove('counteer__settings--pause_nonvisability');
+    pauseButton.classList.add('counteer__settings--pause_visability');
+    playButton.classList.add('counteer__settings--play')
+    playButton.classList.remove('counteer__settings--play_nonvisibility')
+}
+
+
+const angleToRadian = function (angle) {
+    return Math.PI / 180 * angle;
 }
 
 function drawCircle(value) {
     // var start = specs.offset;
-    var start = angleToRadian(0);
+    let start = angleToRadian(0);
     // var between = 2 * Math.PI * (value-timeLeft)/timeLeft + specs.offset;
-    var between = ((timeLeft-value)/timeLeft)*angleToRadian(360);
-    var end = angleToRadian(360);
+    let between = ((timeLeft - value) / timeLeft) * angleToRadian(360);
+    let end = angleToRadian(360);
+
 
     // clear canvas
     context.clearRect(0, 0, specs.centerX * 2, specs.centerY * 2);
@@ -82,10 +115,9 @@ function drawCircle(value) {
     context.fill();
 
 
-
 // draw text
     context.fillStyle = specs.fontColor;
     context.font = specs.valueFont;
-    context.fillText(showMinutes(value), specs.radius - context.measureText(showMinutes(value)).width / 2, specs.radius * 2 - specs.thickness * 4);
+    context.fillText(showMinutes(timeLeft - value), specs.radius - context.measureText(showMinutes(timeLeft - value)).width / 2, specs.radius * 2 - specs.thickness * 5);
 
 }
