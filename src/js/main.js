@@ -1,5 +1,5 @@
 let counter = 0;
-let timeLeft = 10;
+let timeLeft = 100;
 const canva = document.querySelector('#canva');
 const playButton = document.querySelector('.counteer__settings--play--js');
 const pauseButton = document.querySelector('.counteer__settings--pause');
@@ -23,8 +23,64 @@ pauseButton.addEventListener('click', pauseToPlay);
 stopButton.addEventListener('click', stop);
 window.onload = function () {
     drawCircle(0);
-}
+    console.log(listOfExcercises)
+};
+let listOfExcercises = [];
 let interval;
+const hamburger = document.querySelector(".counteer__menu--hamburger");
+const list = document.querySelector('.mainMenu');
+hamburger.addEventListener('click', () => {
+    list.classList.toggle('mainMenu--visible')
+});
+
+let Excercise = function(title, preparingTime, excerciseTime, numberOfExcercises, rounds, restTime){
+    this.title = title;
+    this.preparingTime = preparingTime;
+    this.excerciseTime = excerciseTime;
+    this.numberOfExcercises = numberOfExcercises;
+    this.rounds = rounds;
+    this.restTime = restTime;
+};
+
+function createExcercise(){
+    let newTitle = document.querySelector('.content__item--title--input').value;
+    let newPreparingTime  = document.querySelector('.content__item--preparing--input').value;
+    let newExcerciseTime = document.querySelector('.content__item--excercise--input').value;
+    let newNumberOfExcercise = document.querySelector('.content__item--number--input').value;
+    let newRounds = document.querySelector('.content__item--number--input').value;
+    let newRestTime = document.querySelector('.content__item--rest--input').value;
+    let newExcercise = new Excercise(newTitle, newPreparingTime, newExcerciseTime, newNumberOfExcercise, newRounds, newRestTime);
+    listOfExcercises.push(newExcercise);
+    console.log(listOfExcercises)
+}
+
+const chooseExcercise = document.querySelector('.mainMenu--item__choose');
+const chooseExcerciseModal = document.querySelector('.chooseExcerciseModal');
+const addExcerciseModal = document.querySelector('.addExcerciseModal');
+const addExcercise = document.querySelector('.mainMenu--item__add');
+const declineNewExcercise = document.querySelector('.content__action--decline');
+const acceptNewExcercise = document.querySelector('.content__action--accept');
+const manage = document.querySelector('.mainMenu--item__manage');
+
+const modal = document.getElementById("newExcercise");
+
+addExcercise.addEventListener('click', () =>{
+    addExcerciseModal.style.display = "block";
+});
+declineNewExcercise.addEventListener('click', () => {
+    addExcerciseModal.style.display = "none";
+});
+acceptNewExcercise.addEventListener('click', createExcercise);
+
+chooseExcercise.addEventListener('click', () => {
+    chooseExcerciseModal.style.display = "block";
+});
+window.addEventListener('click', (e) => {
+    if(e.target === chooseExcerciseModal){
+        chooseExcerciseModal.style.display = "none";
+    }
+})
+
 
 function showMinutes(s) {
     let minutes = Math.floor(s / 60);
@@ -48,6 +104,7 @@ function timeIt() {
         clearInterval(interval)
     }
 }
+
 
 function play() {
     counting();
@@ -111,7 +168,7 @@ function drawCircle(value) {
 
     context.arc(specs.centerX, specs.centerY, specs.radius - specs.thickness, end, between, true);
     //ctx.stroke();
-    context.closePath();
+    // context.closePath();
     context.fill();
 
 
@@ -120,4 +177,11 @@ function drawCircle(value) {
     context.font = specs.valueFont;
     context.fillText(showMinutes(timeLeft - value), specs.radius - context.measureText(showMinutes(timeLeft - value)).width / 2, specs.radius * 2 - specs.thickness * 5);
 
+// draw line
+    context.fillStyle = specs.bgColor;
+    context.beginPath()
+    context.moveTo(0, -context.height);
+    context.lineTo(value, 0);
+    context.closePath();
+    context.stroke();
 }

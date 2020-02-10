@@ -38,19 +38,68 @@
     <section class="counteer__menu--options"></section>
     <section class="counteer__settings">
         <div class="counteer__settings--play counteer__settings--play--js">
-            <img src="../assets/img/play.png">
+            <img src="../assets/img/play.png" alt="play button">
         </div>
         <div class="counteer__settings--pause">
-            <img src="../assets/img/pause.png">
+            <img src="../assets/img/pause.png" alt="pause button">
         </div>
         <div class="counteer__settings--stop">
-            <img src="../assets/img/stop.png">
+            <img src="../assets/img/stop.png" alt="stop button">
         </div>
     </section>
-    <section class="counteer__canva">
 
+    <section class="counteer__canva">
         <canvas id="canva" height="300"></canvas>
     </section>
+
+    <section class="mainMenu">
+        <section class="mainMenu--item__choose">Choose excercise</section>
+        <section class="mainMenu--item__add">Add new excercise</section>
+        <section class="mainMenu--item__manage">Manage</section>
+    </section>
+
+    <section class="chooseExcerciseModal">
+        <section class="chooseExcerciseModal__content">
+            <section class="chooseExcerciseModal__list">
+                <section class="chooseExcerciseModal__list--item">Tabata</section>
+                <section class="chooseExcerciseModal__list--item">HIIT</section>
+                <section class="chooseExcerciseModal__list--item">Boxing</section>
+            </section>
+        </section>
+    </section>
+
+    <section id="newExcercise" class="addExcerciseModal">
+        <div class="content">
+
+            <form class="addExcerciseForm">
+                <input class="content__item content__item--title" placeholder="title"></input>
+                <section class="content__item content__item--preparing">preparing time
+                    <input class="content__item--preparing--input">
+                </section>
+                <section class="content__item content__item--excercise">excercise time
+                    <input class="content__item--excercise--input">
+                </section>
+                <section class="content__item content__item--number"># of excercises
+                    <input class="content__item--number--input">
+                </section>
+                <section class="content__item content__item--rounds">rounds
+                    <input class="content__item--number--input">
+                </section>
+                <section class="content__item content__item--rest">rest time
+                    <input class="content__item--rest--input">
+                </section>
+                <section class="content__action">
+                    <section class="content__action content__action--decline">
+                        <img src="../assets/img/delete.svg" alt="accept button">
+                    </section>
+                    <section class="content__action content__action--accept" type="submit">
+                        <img src="../assets/img/ok.svg" alt="delete button">
+                    </section>
+                </section>
+            </form>
+        </div>
+    </section>
+
 
 </main>
 <script src="js/main.js"></script>
