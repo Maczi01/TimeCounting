@@ -1,23 +1,13 @@
-let counter = 0;
-let timeLeft = 100;
+import {createExcercise, Excercise} from "./logic";
+
 const canva = document.querySelector('#canva');
 const playButton = document.querySelector('.counteer__settings--play--js');
 const pauseButton = document.querySelector('.counteer__settings--pause');
 const stopButton = document.querySelector('.counteer__settings--stop');
-var specs = {
-    'radius': 120,
-    'centerX': 120,
-    'centerY': 120,
-    'thickness': 20,
-    'offset': -Math.PI / 2,
-    'color': '#ffffff',
-    'bgColor': '#ff230f',
-    'idFont': '11px Verdana',
-    'valueFont': '80px Teko',
-    'fontColor': '#ffffff',
-    'lineCap': 'round'
-};
+let counter = 0;
+let timeLeft = 100;
 let context = canva.getContext('2d');
+
 playButton.addEventListener('click', play);
 pauseButton.addEventListener('click', pauseToPlay);
 stopButton.addEventListener('click', stop);
@@ -32,28 +22,6 @@ const list = document.querySelector('.mainMenu');
 hamburger.addEventListener('click', () => {
     list.classList.toggle('mainMenu--visible')
 });
-
-let Excercise = function(title, preparingTime, excerciseTime, numberOfExcercises, rounds, restTime){
-    this.title = title;
-    this.preparingTime = preparingTime;
-    this.excerciseTime = excerciseTime;
-    this.numberOfExcercises = numberOfExcercises;
-    this.rounds = rounds;
-    this.restTime = restTime;
-};
-
-function createExcercise(){
-    let newTitle = document.querySelector('.content__item--title--input').value;
-    let newPreparingTime  = document.querySelector('.content__item--preparing--input').value;
-    let newExcerciseTime = document.querySelector('.content__item--excercise--input').value;
-    let newNumberOfExcercise = document.querySelector('.content__item--number--input').value;
-    let newRounds = document.querySelector('.content__item--number--input').value;
-    let newRestTime = document.querySelector('.content__item--rest--input').value;
-    let newExcercise = new Excercise(newTitle, newPreparingTime, newExcerciseTime, newNumberOfExcercise, newRounds, newRestTime);
-    listOfExcercises.push(newExcercise);
-    console.log(listOfExcercises)
-}
-
 const chooseExcercise = document.querySelector('.mainMenu--item__choose');
 const chooseExcerciseModal = document.querySelector('.chooseExcerciseModal');
 const addExcerciseModal = document.querySelector('.addExcerciseModal');
@@ -80,16 +48,6 @@ window.addEventListener('click', (e) => {
         chooseExcerciseModal.style.display = "none";
     }
 })
-
-
-function showMinutes(s) {
-    let minutes = Math.floor(s / 60);
-    let seconds = s % 60;
-    if (seconds.toString().length === 1) {
-        seconds = '0' + seconds
-    }
-    return `${minutes} : ${seconds}`;
-}
 
 function counting() {
     interval = setInterval(timeIt, 1000);
@@ -132,10 +90,6 @@ function stop() {
     playButton.classList.remove('counteer__settings--play_nonvisibility')
 }
 
-
-const angleToRadian = function (angle) {
-    return Math.PI / 180 * angle;
-}
 
 function drawCircle(value) {
     // var start = specs.offset;
@@ -185,3 +139,31 @@ function drawCircle(value) {
     context.closePath();
     context.stroke();
 }
+
+const angleToRadian = function (angle) {
+    return Math.PI / 180 * angle;
+}
+
+
+function showMinutes(s) {
+    let minutes = Math.floor(s / 60);
+    let seconds = s % 60;
+    if (seconds.toString().length === 1) {
+        seconds = '0' + seconds
+    }
+    return `${minutes} : ${seconds}`;
+}
+
+const specs = {
+    'radius': 120,
+    'centerX': 120,
+    'centerY': 120,
+    'thickness': 20,
+    'offset': -Math.PI / 2,
+    'color': '#ffffff',
+    'bgColor': '#ff230f',
+    'idFont': '11px Verdana',
+    'valueFont': '80px Teko',
+    'fontColor': '#ffffff',
+    'lineCap': 'round'
+};
